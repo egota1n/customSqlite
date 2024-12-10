@@ -26,17 +26,18 @@ public class WriteStandartSqlite {
 
     private static void createTable() {
         String sql = """
-                CREATE TABLE IF NOT EXISTS users (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT NOT NULL,
+                DROP TABLE IF EXISTS users;
+                CREATE TABLE users (
+                    name TEXT,
                     age INTEGER
                 );
                 """;
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println("Таблица пользователей успешно создана");
+            stmt.execute("DROP TABLE IF EXISTS users;");
+            stmt.execute("CREATE TABLE users (name TEXT, age INTEGER);");
+            System.out.println("Таблица users успешно создана");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,13 +48,15 @@ public class WriteStandartSqlite {
                 INSERT INTO users (name, age) VALUES
                 ('Egor', 22),
                 ('Artem', 22),
+                ('Timur', 22),
+                ('Gena', 40),
                 ('Max', 45);
                 """;
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement()) {
             int rowsInserted = stmt.executeUpdate(sql);
-            System.out.println(rowsInserted + " строк добавлено в таблицу пользователей");
+            System.out.println(rowsInserted + " строк добавлено в таблицу users");
         } catch (Exception e) {
             e.printStackTrace();
         }

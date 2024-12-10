@@ -22,11 +22,10 @@ public class ReadStandartSqlite {
 
             System.out.println("Чтение данных из таблицы пользователей");
             while (rs.next()) {
-                int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int age = rs.getInt("age");
 
-                System.out.printf("ID: %d, Name: %s, Age: %d%n", id, name, age);
+                System.out.printf("Name: %s, Age: %d%n", name, age);
             }
 
         } catch (Exception e) {
